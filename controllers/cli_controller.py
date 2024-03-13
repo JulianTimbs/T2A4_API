@@ -6,6 +6,7 @@ from init import db, bcrypt
 from models.user import User
 from models.customer import Customer
 from models.interaction import Interaction
+from models.product import Product
 
 db_commands = Blueprint('db', __name__)
 
@@ -83,9 +84,28 @@ def seed_tables():
         )
     ]
 
+    products = [
+        Product(
+            name='product1',
+            price=5.00,
+            stock=15
+        ),
+        Product(
+            name='product2',
+            price=2.57,
+            stock=7
+        ),
+        Product(
+            name='product3',
+            price=15.00,
+            stock=0
+        )
+    ]
+
     db.session.add_all(users)
     db.session.add_all(customers)
     db.session.add_all(interactions)
+    db.session.add_all(products)
     db.session.commit()
 
     print('Tables seeded')
