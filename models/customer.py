@@ -16,6 +16,7 @@ class Customer(db.Model):
 
     user = db.relationship('User', back_populates='customers')
     interactions = db.relationship('Interaction', back_populates='customer')
+    purchases = db.relationship('Purchase', back_populates='customer')
 
 
 class CustomerSchema(ma.Schema):
@@ -23,7 +24,7 @@ class CustomerSchema(ma.Schema):
 
     class Meta:
         fields = ('id', 'full_name', 'email', 'phone',
-                  'business', 'user', 'interactions')
+                  'business', 'user', 'interactions', 'purchases')
         ordered = True
 
 

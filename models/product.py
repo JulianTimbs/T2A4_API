@@ -9,10 +9,12 @@ class Product(db.Model):
     price = db.Column(db.Integer, nullable=False)
     stock = db.Column(db.Integer, nullable=False)
 
+    purchases = db.relationship('Purchase', back_populates='product')
+
 
 class ProductSchema(ma.Schema):
     class Meta:
-        fields = ('id', 'name', 'price', 'stock')
+        fields = ('id', 'name', 'price', 'stock', 'purchases')
         ordered = True
 
 
