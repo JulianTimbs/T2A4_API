@@ -1,8 +1,11 @@
+from datetime import date
+
 from flask import Blueprint
 
 from init import db, bcrypt
 from models.user import User
 from models.customer import Customer
+from models.interaction import Interaction
 
 db_commands = Blueprint('db', __name__)
 
@@ -59,8 +62,30 @@ def seed_tables():
         )
     ]
 
+    interactions = [
+        Interaction(
+            int_type='email',
+            date=date.today(),
+            user=users[0],
+            customer=customers[0]
+        ),
+        Interaction(
+            int_type='call',
+            date=date.today(),
+            user=users[0],
+            customer=customers[1]
+        ),
+        Interaction(
+            int_type='email',
+            date=date.today(),
+            user=users[1],
+            customer=customers[2]
+        )
+    ]
+
     db.session.add_all(users)
     db.session.add_all(customers)
+    db.session.add_all(interactions)
     db.session.commit()
 
     print('Tables seeded')

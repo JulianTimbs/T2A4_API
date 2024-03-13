@@ -15,13 +15,15 @@ class Customer(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
     user = db.relationship('User', back_populates='customers')
+    interactions = db.relationship('Interaction', back_populates='customer')
 
 
 class CustomerSchema(ma.Schema):
     # user = fields.Nested('UserSchema', only=['full_name'])
 
     class Meta:
-        fields = ('id', 'full_name', 'email', 'phone', 'business', 'user')
+        fields = ('id', 'full_name', 'email', 'phone',
+                  'business', 'user', 'interactions')
         ordered = True
 
 

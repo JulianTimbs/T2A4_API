@@ -13,12 +13,13 @@ class User(db.Model):
 
     # MUST DO RELATIONSHIP TO INTERACTIONS
     customers = db.relationship('Customer', back_populates='user')
+    interactions = db.relationship('Interaction', back_populates='user')
 
 
 class UserSchema(ma.Schema):
     class Meta:
         fields = ('id', 'full_name', 'email',
-                  'password', 'is_admin', 'customers')
+                  'password', 'is_admin', 'customers', 'interactions')
 
 
 user_schema = UserSchema(exclude=['password'])
