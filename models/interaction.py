@@ -18,7 +18,7 @@ class Interaction(db.Model):
 
 class InteractionSchema(ma.Schema):
     class Meta:
-        fields = ('id', 'int_type', 'date', 'user', 'customer')
+        fields = ('id', 'int_type', 'date', 'user_id', 'customer_id')
         ordered = True
 
 

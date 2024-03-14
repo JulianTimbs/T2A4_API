@@ -20,7 +20,13 @@ class Customer(db.Model):
 
 
 class CustomerSchema(ma.Schema):
-    # user = fields.Nested('UserSchema', only=['full_name'])
+    user = fields.Nested('UserSchema', only=['id', 'full_name'])
+
+    interactions = fields.List(fields.Nested('InteractionSchema', only=[
+        'id', 'int_type', 'date', 'user_id']))
+
+    purchases = fields.List(fields.Nested(
+        'PurchaseSchema', only=['id', 'date']))
 
     class Meta:
         fields = ('id', 'full_name', 'email', 'phone',
