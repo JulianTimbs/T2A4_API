@@ -1,3 +1,5 @@
+from marshmallow import fields
+
 from init import db, ma
 
 
@@ -6,13 +8,15 @@ class Product(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
-    price = db.Column(db.Integer, nullable=False)
+    price = db.Column(db.Float, nullable=False)
     stock = db.Column(db.Integer, nullable=False)
 
     purchases = db.relationship('Purchase', back_populates='product')
 
 
 class ProductSchema(ma.Schema):
+    purchases = fields.List(fields.Nested('PurchaseSchema', only=['id']))
+
     class Meta:
         fields = ('id', 'name', 'price', 'stock', 'purchases')
         ordered = True

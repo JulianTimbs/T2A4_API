@@ -32,4 +32,7 @@ def create_app():
     from controllers.interaction_controller import interaction_bp
     app.register_blueprint(interaction_bp)
 
+    from controllers.product_controller import products_bp
+    app.register_blueprint(products_bp)
+
     return app
