@@ -29,4 +29,7 @@ def create_app():
     from controllers.customer_controller import customer_bp
     app.register_blueprint(customer_bp)
 
+    from controllers.interaction_controller import interaction_bp
+    app.register_blueprint(interaction_bp)
+
     return app
