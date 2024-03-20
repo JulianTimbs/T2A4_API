@@ -12,7 +12,7 @@ def create_app():
 
     # configs
     app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URI")
-    app. config["JWT_SECRET_KEY"] = os.environ.get("JWT_SECRET_KEY")
+    app.config["JWT_SECRET_KEY"] = os.environ.get("JWT_SECRET_KEY")
 
     # connect libraries with flask app
     db.init_app(app)
@@ -34,5 +34,8 @@ def create_app():
 
     from controllers.product_controller import products_bp
     app.register_blueprint(products_bp)
+
+    from controllers.purchase_controller import purchase_bp
+    app.register_blueprint(purchase_bp)
 
     return app
