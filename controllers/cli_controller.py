@@ -105,19 +105,22 @@ def seed_tables():
 
     purchases = [
         Purchase(
-            product=products[0],
+            product=[products[0], products[1], products[2]],
+            products=[0, 1, 2],
             amount=5,
             customer=customers[0],
             date=date.today()
         ),
         Purchase(
-            product=products[1],
+            product=[products[1], products[0]],
+            products=[1, 0],
             amount=10,
             customer=customers[0],
             date=date.today()
         ),
         Purchase(
-            product=products[2],
+            product=[products[2]],
+            products=[2],
             amount=2,
             customer=customers[2],
             date=date.today()

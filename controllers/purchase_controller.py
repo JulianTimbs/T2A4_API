@@ -5,6 +5,7 @@ from flask_jwt_extended import jwt_required
 
 from init import db
 from models.purchase import Purchase, purchase_schema, purchases_schema
+from models.product import Product
 from controllers.customer_controller import is_user_admin
 
 purchase_bp = Blueprint('PurchaseSchema', __name__, url_prefix='/purchases')
@@ -31,7 +32,7 @@ def create_purchase():
     purchase = Purchase(
         date=date.today(),
         amount=body_data.get('amount'),
-        product_id=body_data.get('product_id'),
+        products=body_data.get('products'),
         customer_id=body_data.get('customer_id')
     )
     db.session.add(purchase)
@@ -67,8 +68,8 @@ def update_purchase(purchase_id):
     if purchase:
         purchase.date = body_data.get('date') or purchase.date
         purchase.amount = body_data.get('amount') or purchase.amount
-        purchase.product_id = body_data.get(
-            'product_id') or purchase.product_id
+        purchase.products = body_data.get(
+            'products') or purchase.product_id
         purchase.customer_id = body_data.get(
             'customer_id') or purchase.customer_id
 

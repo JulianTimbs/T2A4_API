@@ -1,6 +1,7 @@
 from marshmallow import fields
 
 from init import db, ma
+from models.purchase import purchase_product_join
 
 
 class Product(db.Model):
@@ -11,7 +12,8 @@ class Product(db.Model):
     price = db.Column(db.Float, nullable=False)
     stock = db.Column(db.Integer, nullable=False)
 
-    purchases = db.relationship('Purchase', back_populates='product')
+    purchases = db.relationship(
+        'Purchase', secondary=purchase_product_join, back_populates='product')
 
 
 class ProductSchema(ma.Schema):

@@ -1,4 +1,9 @@
+from marshmallow import fields
+
 from init import db, ma
+
+purchase_product_join = db.Table('purchase_product_join', db.Column('purchase_id', db.Integer, db.ForeignKey(
+    'purchases.id')), db.Column('product_id', db.Integer, db.ForeignKey('products.id')))
 
 
 class Purchase(db.Model):
@@ -8,18 +13,20 @@ class Purchase(db.Model):
     date = db.Column(db.Date)
     amount = db.Column(db.Integer, nullable=False)
 
-    product_id = db.Column(db.Integer, db.ForeignKey(
-        'products.id'), nullable=False)
+    products = db.Column(db.ARRAY(db.Integer), nullable=False)
+
     customer_id = db.Column(db.Integer, db.ForeignKey(
         'customers.id'), nullable=False)
 
-    product = db.relationship('Product', back_populates='purchases')
+    product = db.relationship(
+        'Product', secondary=purchase_product_join, back_populates='purchases')
     customer = db.relationship('Customer', back_populates='purchases')
 
 
 class PurchaseSchema(ma.Schema):
+
     class Meta:
-        fields = ('id', 'date', 'amount', 'product_id', 'customer_id')
+        fields = ('id', 'date', 'amount', 'products', 'customer_id')
         ordered = True
 
 
